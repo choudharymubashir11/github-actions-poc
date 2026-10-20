@@ -1,0 +1,24 @@
+
+name: Module 2 - Repository Dispatch
+
+on:
+  repository_dispatch:
+    types:
+      - external-test
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display dispatch information
+        run: |
+          echo "Repository dispatch workflow started"
+          echo "Event: ${{ github.event_name }}"
+          echo "Action: ${{ github.event.action }}"
+          echo "Repository: ${{ github.repository }}"
