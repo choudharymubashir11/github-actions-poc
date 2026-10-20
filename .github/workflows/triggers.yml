@@ -1,0 +1,40 @@
+
+name: Module 2 - Workflow Triggers
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why are you running this workflow?"
+        required: true
+        default: "Manual assignment test"
+
+permissions:
+  contents: read
+
+jobs:
+  trigger-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display trigger information
+        run: |
+          echo "GitHub Actions trigger demonstration"
+          echo "Event: ${{ github.event_name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch or ref: ${{ github.ref }}"
+
+      - name: Display manual input
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Reason - ${{ inputs.reason }}"
