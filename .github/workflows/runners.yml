@@ -1,0 +1,32 @@
+
+name: Module 5 - Runner Demonstration
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Ubuntu runner"
+          uname -a
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - run: |
+          echo "Windows runner"
+          systeminfo
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - run: |
+          echo "macOS runner"
+          uname -a
