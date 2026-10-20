@@ -1,0 +1,22 @@
+
+name: Module 2 - Scheduled Workflow
+
+on:
+  schedule:
+    - cron: "30 14 * * 1-5"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scheduled-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show scheduled execution
+        run: |
+          echo "Scheduled workflow executed"
+          echo "UTC schedule: 14:30, Monday to Friday"
+          date -u
