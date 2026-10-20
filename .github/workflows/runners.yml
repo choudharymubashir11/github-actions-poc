@@ -4,29 +4,38 @@ name: Module 5 - Runner Demonstration
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
   ubuntu:
+    name: Test Ubuntu Runner
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Ubuntu runner"
+      - name: Display Ubuntu information
+        run: |
+          echo "Ubuntu runner is working"
           uname -a
 
   windows:
+    name: Test Windows Runner
     runs-on: windows-latest
     steps:
-      - run: |
-          echo "Windows runner"
-          systeminfo
+      - name: Display Windows information
+        shell: pwsh
+        run: |
+          Write-Output "Windows runner is working"
+          $env:OS
+          $env:RUNNER_ARCH
 
   macos:
+    name: Test macOS Runner
     runs-on: macos-latest
     steps:
-      - run: |
-          echo "macOS runner"
+      - name: Display macOS information
+        run: |
+          echo "macOS runner is working"
           uname -a
