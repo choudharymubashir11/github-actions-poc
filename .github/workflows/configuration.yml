@@ -1,0 +1,42 @@
+
+name: Module 4 - Variables and Secrets
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  configuration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display repository variable
+        env:
+          PROJECT_ENV: ${{ vars.PROJECT_ENV }}
+        run: echo "Project environment is $PROJECT_ENV"
+
+      - name: Check secret is configured
+        env:
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+        run: |
+          if [ -n "$DEMO_SECRET" ]; then
+            echo "Demo secret is configured"
+          else
+            echo "Demo secret is missing"
+            exit 1
+          fi
+
+      - name: Check automatic token availability
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$GH_TOKEN" ]; then
+            echo "GITHUB_TOKEN is available"
+          else
+            echo "GITHUB_TOKEN is missing"
+            exit 1
+          fi
